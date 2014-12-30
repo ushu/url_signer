@@ -1,13 +1,13 @@
 # UrlSign
 
-TODO: Write a gem description
+Quickly generate and verify signed urls.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'url_sign'
+gem 'url_signer'
 ```
 
 And then execute:
@@ -16,11 +16,28 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install url_sign
+    $ gem install url_signer
 
 ## Usage
 
-TODO: Write usage instructions here
+### URL signing
+
+To convert a URL into a signed url, pass it to +UrlSigner.sign+, passing it either a string of an instance of +URI+.
+
+```ruby
+>>> signed_url = UrlSigner.sign('http://google.fr?q=test', key='mykey')
+```
+
+the returned value +signed_url+ is an instance of +URI+.
+
+### URL verification
+
+Given a signed URL, you can check its authenticity by calling +UrlSigner.valid?+ on it:
+
+```ruby
+>>> UrlSigner.valid?(signed_url)
+true
+```
 
 ## Contributing
 
