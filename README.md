@@ -22,17 +22,17 @@ Or install it yourself as:
 
 ### URL signing
 
-To convert a URL into a signed url, pass it to +UrlSigner.sign+, passing it either a string of an instance of +URI+.
+To convert a URL into a signed url, pass it to `UrlSigner.sign`, passing it either a string of an instance of `URI`.
 
 ```ruby
 >>> signed_url = UrlSigner.sign('http://google.fr?q=test', key='mykey')
 ```
 
-the returned value +signed_url+ is an instance of +URI+.
+the returned value `signed_url` is an instance of `URI`.
 
 ### URL verification
 
-Given a signed URL, you can check its authenticity by calling +UrlSigner.valid?+ on it:
+Given a signed URL, you can check its authenticity by calling `UrlSigner.valid?` on it:
 
 ```ruby
 >>> UrlSigner.valid?(signed_url)
