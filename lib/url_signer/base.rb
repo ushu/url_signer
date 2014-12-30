@@ -4,7 +4,8 @@ require 'digest/hmac'
 require 'digest/sha1'
 
 module UrlSigner
-  class Base < Struct.new(:url, :key, :hash_method)
+
+  class Base < Struct.new(:url, :key, :hash_method) # :nodoc:
 
     def initialize(url, key: nil, hash_method: nil)
       # load and check url

@@ -1,7 +1,7 @@
 require 'url_signer/base'
 
 module UrlSigner
-  class Verifier < Base
+  class Verifier < Base # :nodoc:
 
     def valid?
       return false unless signed?

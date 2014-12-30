@@ -1,3 +1,4 @@
+# Sign and verify URLs
 module UrlSigner
   autoload :Base, 'url_signer/base'
   autoload :Signer, 'url_signer/signer'

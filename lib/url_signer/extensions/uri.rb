@@ -8,6 +8,8 @@ module URI
     #
     #   url = URI.parse('http://google.fr')
     #   signed_url = url.signed
+    #
+    # for +options+ see UrlSigner#sign.
     def signed(*options)
       UrlSigner.sign(self, *options)
     end
@@ -16,6 +18,8 @@ module URI
     #
     #   signed_url = URI.parse('http://google.fr').signed
     #   signed_url.signature_valid? # => true
+    #
+    # for +options+ see UrlSigner#verify.
     def signature_valid?(*options)
       UrlSigner.valid?(self, *options)
     end

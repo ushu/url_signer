@@ -1,7 +1,7 @@
 require 'url_signer/base'
 
 module UrlSigner
-  class Signer < Base
+  class Signer < Base # :nodoc:
 
     def sign
       raise "this URL is already signed !" if signed?
