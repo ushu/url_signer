@@ -41,6 +41,22 @@ Given a signed URL, you can check its authenticity by calling `UrlSigner.valid?`
 true
 ```
 
+### helper methods
+
+The gem adds helper methods to <tt>String</tt> and <tt>URI</tt> classes:
+
+```ruby
+# to generate a signed uri directly form a string
+signed_url = 'http://google.fr'.to_signed_uri(key: 'test')
+
+# or if we have a URI insance already
+url = URI.parse('http://google.fr')
+signed_url = url.signed(key: 'test')
+
+# finally to check for signature authenticity
+signed_url.signature_valid?(key: 'test')
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/url_sign/fork )
