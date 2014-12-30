@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'url_sign/version'
+require 'url_signer/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "url_sign"
-  spec.version       = UrlSign::VERSION
+  spec.name          = "url_signer"
+  spec.version       = UrlSigner::VERSION
   spec.authors       = ["Aurélien Noce"]
-  spec.email         = ["aurelien.noce@imagine-app.fr"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.email         = ["aurnoce@gmail.com"]
+  spec.summary       = %q{Sign urls}
+  spec.description   = %q{Sign urls}
   spec.homepage      = ""
   spec.license       = "MIT"
 
