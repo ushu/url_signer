@@ -27,7 +27,8 @@ Or install it yourself as:
 To convert a URL into a signed url, pass it to `UrlSigner.sign`, passing it either a string of an instance of `URI`.
 
 ```ruby
->>> signed_url = UrlSigner.sign('http://google.fr?q=test', key='mykey')
+# generate a new URI instance with `signature` param populated
+signed_url = UrlSigner.sign('http://google.fr?q=test', key='mykey')
 ```
 
 the returned value `signed_url` is an instance of `URI`.
@@ -37,8 +38,8 @@ the returned value `signed_url` is an instance of `URI`.
 Given a signed URL, you can check its authenticity by calling `UrlSigner.valid?` on it:
 
 ```ruby
->>> UrlSigner.valid?(signed_url)
-true
+# verify url validity for a given URI instance
+UrlSigner.valid?(signed_url) # => true
 ```
 
 ### helper methods
