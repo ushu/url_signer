@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = UrlSigner::VERSION
   spec.authors       = ["Aurélien Noce"]
   spec.email         = ["aurnoce@gmail.com"]
-  spec.summary       = %q{Sign urls}
-  spec.description   = %q{Sign urls}
-  spec.homepage      = ""
+  spec.summary       = %q{Sign and verify URLs}
+  spec.description   = %q{Simple solution (2 methods) to sign URLs and verify the generated URLs. Use HAMC/SHA1 for signing by default but can be configured.}
+  spec.homepage      = "https://github.com/ushu/url_signer"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
