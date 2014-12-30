@@ -4,13 +4,13 @@ module UrlSigner
   module_function
 
   def sign(url, *options)
-    temp_signer = UrlSigner::Signer.new(*options)
-    temp_signer.sign(url)
+    temp_signer = UrlSigner::Signer.new(url, *options)
+    temp_signer.sign
   end
 
   def valid?(url, *options)
-    temp_signer = UrlSigner::Signer.new(*options)
-    temp_signer.valid?(url)
+    temp_signer = UrlSigner::Signer.new(url, *options)
+    temp_signer.valid?
   end
 
 end

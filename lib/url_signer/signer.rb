@@ -4,55 +4,64 @@ require 'digest/hmac'
 require 'digest/sha1'
 
 module UrlSigner
-  class Signer < Struct.new(:key, :hash_method)
-    def initialize(key: nil, hash_method: nil)
+  class Signer < Struct.new(:url, :key, :hash_method)
+    def initialize(url, key: nil, hash_method: nil)
+      # load and check url
+      url = URI.parse(url) if url.kind_of?(String)
+      raise "expecting a String or URI instance" unless url.kind_of?(URI)
+
+      # load and check signing key
       key ||= ENV['URL_SIGNING_KEY']
       raise "You need to provided a signing key to your UrlSigner instance" unless key
 
+      # load the hash method
       hash_method ||= Digest::SHA1
 
-      super(key, hash_method)
+      super(url, key, hash_method)
     end
 
-    def sign(url)
-      url = URI.parse(url) if url.kind_of?(String)
-      raise "expecting a String or URI instance" unless url.kind_of?(URI)
-      raise "this URL is already signed !" if signed?(url)
-
-      # compute signature
-      signature = signature_for_url(url)
+    def sign
+      raise "this URL is already signed !" if signed?
 
       # build new url
       signed_url = url.dup
-      signed_url.query = extend_query(url.query, signature)
+      signed_url.query = extended_query
       signed_url
     end
 
-    def valid?(url)
-      return false unless signed?(url)
+    def valid?
+      return false unless signed?
 
-      params = params_from_query(url.query)
-      signature = params.delete('signature')
-      recomputed_signature = compute_signature(url.host, url.path, params)
+      # extract signature from params
+      remaining_params = params.dup
+      provided_signature = remaining_params.delete('signature')
 
-      safe_compare(signature, recomputed_signature)
+      # recompute the signature using the secret key
+      recomputed_signature = compute_signature(url.host, url.path, remaining_params)
+
+      safe_compare(provided_signature, recomputed_signature)
     end
 
-    def signature_for_url(url)
-      params = params_from_query(url.query)
+    def signature
       compute_signature(url.host, url.path, params)
     end
 
     private
 
-    def extend_query(query, signature)
+    def extended_query
       base_query = query ? query + '&' : ''
-      return base_query + "signature=#{signature}"
+      base_query + "signature=#{signature}"
     end
 
-    def params_from_query(query)
-      params = CGI.parse(query)
-      Hash[params.map { |k,v| v.size == 1 ? [k, v[0]] : [k, v] }]
+    def params
+      @params ||= begin
+        raw_params = CGI.parse(query)
+        Hash[raw_params.map { |k,v| v.size == 1 ? [k, v[0]] : [k, v] }]
+      end
+    end
+
+    def query
+      url.query
     end
 
     def compute_signature(host, path, params)
@@ -60,12 +69,10 @@ module UrlSigner
       query_string = keys.map { |k| "#{CGI.escape(k)}=#{CGI.escape(params[k])}" }.join
       base_string = "#{CGI.escape(host)}&#{CGI.escape(path)}&#{CGI.escape(query_string)}"
 
-      signature = Digest::HMAC.hexdigest(base_string, key, hash_method)
-      return signature
+      return Digest::HMAC.hexdigest(base_string, key, hash_method)
     end
 
-    def signed?(url)
-      params = params_from_query(url.query)
+    def signed?
       params.has_key?('signature')
     end
 

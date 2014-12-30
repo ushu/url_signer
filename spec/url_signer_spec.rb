@@ -9,13 +9,13 @@ describe UrlSigner do
     describe ".#{method}:" do
 
       it "builds a new signer" do
-        expect(UrlSigner::Signer).to receive(:new).with(key: 'toto').and_return(fake_signer)
+        expect(UrlSigner::Signer).to receive(:new).with(url, key: 'toto').and_return(fake_signer)
         UrlSigner.sign(url, key: 'toto')
       end
 
       it "calls ##{method} on the new signer" do
         allow(UrlSigner::Signer).to receive(:new).and_return(fake_signer)
-        expect(fake_signer).to receive(method).with(url)
+        expect(fake_signer).to receive(method)
 
         # call method by name dynamically
         UrlSigner.send(method, url, key: 'toto')
