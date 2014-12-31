@@ -45,6 +45,6 @@ module UrlSigner
 end
 
 # Insert helpers in URI
-require 'url_signer/extensions/uri'
+require 'url_signer/uri'
 # Insert helpers in Rails controllers
-require 'url_signer/extensions/rails' if defined?(Rails)
+require 'url_signer/rails' if defined?(Rails)
