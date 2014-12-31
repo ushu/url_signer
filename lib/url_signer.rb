@@ -46,5 +46,5 @@ end
 
 # Insert helpers in URI
 require 'url_signer/extensions/uri'
-# Insert helpers in String
-require 'url_signer/extensions/string'
+# Insert helpers in Rails controllers
+require 'url_signer/extensions/rails' if defined?(Rails)
