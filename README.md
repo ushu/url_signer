@@ -42,7 +42,7 @@ Given a signed URL, you can check its authenticity by calling `UrlSigner.valid?`
 UrlSigner.valid?(signed_url, key: 'mykey') # => true
 ```
 
-### helper methods on URI
+### Helper methods on URI
 
 The gem adds the `signed` helper method to <tt>URI</tt>, that returns a new signed version of the url:
 
@@ -58,17 +58,25 @@ When using `Rails`, a set of helpers are added to `ActionController::Base`:
 ```ruby
 
 class MyController < ActionController::Base
+  # Will trigger the check on the request url
+  before_action :verify_signature!, only: secure_action
+
   def get_signed_url
-    @signed_url = sign_url(signed_url_my_controller_url)
+    @signed_url = sign_url(my_controller_secure_action_url)
     # Template will link to @signed_url
   end
 
-  before_action :verify_signature!
-  def signed_url
+  def secure_action
     # This method is only accessible with a signed url
   end
 end
 
+```
+
+Note that the `sign_url` helper can also be used as a view helper:
+
+```erb
+<%= link_to 'Super secure action', sign_url(my_controller_secure_action_url) %>
 ```
 
 The key and hash method used in `sign_url` and `verify_signature!` are provided through `Rails.configuration.url_signer`, which default to:
