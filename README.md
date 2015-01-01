@@ -1,4 +1,4 @@
-# UrlSign
+# UrlSigner
 [![Build Status](https://travis-ci.org/ushu/url_signer.svg?branch=master)](https://travis-ci.org/ushu/url_signer)
 [![Code Climate](https://codeclimate.com/github/ushu/url_signer/badges/gpa.svg)](https://codeclimate.com/github/ushu/url_signer)
 
@@ -28,7 +28,7 @@ To convert a URL into a signed url, pass it to `UrlSigner.sign`, passing it eith
 
 ```ruby
 # generate a new URI instance with `signature` param populated
-signed_url = UrlSigner.sign('http://google.fr?q=test', key='mykey')
+signed_url = UrlSigner.sign('http://google.fr?q=test', key: 'mykey')
 ```
 
 the returned value `signed_url` is an instance of `URI`.
@@ -39,10 +39,10 @@ Given a signed URL, you can check its authenticity by calling `UrlSigner.valid?`
 
 ```ruby
 # verify url validity for a given URI instance
-UrlSigner.valid?(signed_url) # => true
+UrlSigner.valid?(signed_url, key: 'mykey') # => true
 ```
 
-### helper methods
+### helper methods on URI
 
 The gem adds helper methods to <tt>String</tt> and <tt>URI</tt> classes:
 
@@ -53,10 +53,37 @@ signed_url = 'http://google.fr'.to_signed_uri(key: 'test')
 # or if we have a URI insance already
 url = URI.parse('http://google.fr')
 signed_url = url.signed(key: 'test')
-
-# finally to check for signature authenticity
-signed_url.signature_valid?(key: 'test')
 ```
+
+## Rails integration
+
+When using `Rails`, a set of helpers are added to `ActionController::Base`:
+
+```ruby
+
+class MyController < ActionController::Base
+  def get_signed_url
+    @signed_url = sign_url(signed_url_my_controller_url)
+    # Template will link to @signed_url
+  end
+
+  before_action :verify_signature!
+  def signed_url
+    # This method is only accessible with a signed url
+  end
+end
+
+```
+
+The key and hash method used in `sign_url` and `verify_signature!` are provided through `Rails.configuration.url_signer`, which default to:
+
+```ruby
+# defaults values:
+Rails.configuration.url_signer.key = ENV['URL_SIGNING_KEY']
+Rails.configuration.url_signer.hash_method = Digest::SHA1
+```
+
+Note that provided env `URL_SIGNING_KEY` environment variable is usually enough to get a working URL signing environment.
 
 ## Contributing
 
