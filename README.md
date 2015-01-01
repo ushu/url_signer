@@ -1,4 +1,5 @@
 # UrlSigner
+[![Gem Version](https://badge.fury.io/rb/url_signer.svg)](http://badge.fury.io/rb/url_signer)
 [![Build Status](https://travis-ci.org/ushu/url_signer.svg?branch=master)](https://travis-ci.org/ushu/url_signer)
 [![Code Climate](https://codeclimate.com/github/ushu/url_signer/badges/gpa.svg)](https://codeclimate.com/github/ushu/url_signer)
 
