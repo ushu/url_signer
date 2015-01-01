@@ -44,13 +44,9 @@ UrlSigner.valid?(signed_url, key: 'mykey') # => true
 
 ### helper methods on URI
 
-The gem adds helper methods to <tt>String</tt> and <tt>URI</tt> classes:
+The gem adds the `signed` helper method to <tt>URI</tt>, that returns a new signed version of the url:
 
 ```ruby
-# to generate a signed uri directly form a string
-signed_url = 'http://google.fr'.to_signed_uri(key: 'test')
-
-# or if we have a URI insance already
 url = URI.parse('http://google.fr')
 signed_url = url.signed(key: 'test')
 ```
