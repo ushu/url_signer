@@ -22,6 +22,10 @@ Or install it yourself as:
 
 ## Usage
 
+*Note*: There are rdoc-formatted comments on the most useful methods, so running `rdoc` in the shell will give you
+insights on the available options.
+[Rubygems](https://rubygems.org/) also generate a HTML version of it [here](http://www.rubydoc.info/gems/url_signer).
+
 ### URL signing
 
 To convert a URL into a signed url, pass it to `UrlSigner.sign`, passing it either a string of an instance of `URI`.
@@ -88,6 +92,13 @@ Rails.configuration.url_signer.hash_method = Digest::SHA1
 ```
 
 Note that provided env `URL_SIGNING_KEY` environment variable is usually enough to get a working URL signing environment.
+
+## TODO
+
+ [ ] Add an option to choose the param name: it is currently set to `signature`
+ [ ] Allow to customize the signing process by selecting with parts of the URL to include (for eg. allow to sign only considering path and not domain etc.)
+ [ ] Write tests for the Rails integration
+ [ ] Improve docs
 
 ## Contributing
 
