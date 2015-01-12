@@ -96,10 +96,10 @@ Note that provided env `URL_SIGNING_KEY` environment variable is usually enough 
 
 ## TODO
 
- [ ] Add an option to choose the param name: it is currently set to `signature`
- [ ] Allow to customize the signing process by selecting with parts of the URL to include (for eg. allow to sign only considering path and not domain etc.)
- [ ] Write tests for the Rails integration
- [ ] Improve docs
+  - [ ] Add an option to choose the param name: it is currently set to `signature`
+  - [ ] Allow to customize the signing process by selecting with parts of the URL to include (for eg. allow to sign only considering path and not domain etc.)
+  - [ ] Write tests for the Rails integration
+  - [ ] Improve docs
 
 ## Contributing
 
